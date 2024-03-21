@@ -38,7 +38,6 @@ export function SignUp() {
         //   actionButton: 'bg-red-400',
         // },
       })
-      console.log(data)
     } catch (error) {
       toast.error('Oh não! Algo deu errado ao tentar realizar o cadastro.')
     }
