@@ -44,10 +44,19 @@ export function AccountMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>{profile?.name}</span>
-          <span className="text-xs font-normal text-muted-foreground">
-            {profile?.email}
-          </span>
+          {isLoadingManagedRestaurant ? (
+            <div className="space-y-1.5">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-4 w-24" />
+            </div>
+          ) : (
+            <>
+              <span>{profile?.name}</span>
+              <span className="text-xs font-normal text-muted-foreground">
+                {profile?.email}
+              </span>
+            </>
+          )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
