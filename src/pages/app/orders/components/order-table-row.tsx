@@ -3,14 +3,18 @@ import { ArrowRight, Search, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { TableCell, TableRow } from '@/components/ui/table'
 
+import { OrderDetails } from './order-details'
+
 export function OrderTableRow() {
   return (
     <TableRow>
       <TableCell>
-        <Button variant="outline" size="xs" title="Detalhes do pedido">
-          <Search className="h-3 w-3" />
-          <span className="sr-only">Detalhes do pedido</span>
-        </Button>
+        <OrderDetails>
+          <Button variant="outline" size="xs" title="Detalhes do pedido">
+            <Search className="h-3 w-3" />
+            <span className="sr-only">Detalhes do pedido</span>
+          </Button>
+        </OrderDetails>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
         455454654654fa65d4f56ad4
