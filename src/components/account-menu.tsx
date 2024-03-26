@@ -13,16 +13,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
+import { Skeleton } from './ui/skeleton'
+
 export function AccountMenu() {
   const { data: profile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
   })
 
-  const { data: managedRestaurant } = useQuery({
-    queryKey: ['managed-restaurant'],
-    queryFn: getManagedRestaurant,
-  })
+  const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
+    useQuery({
+      queryKey: ['managed-restaurant'],
+      queryFn: getManagedRestaurant,
+    })
 
   return (
     <DropdownMenu>
@@ -31,7 +34,11 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          {managedRestaurant?.name}
+          {isLoadingManagedRestaurant ? (
+            <Skeleton className="h-4 w-40" />
+          ) : (
+            managedRestaurant?.name
+          )}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
