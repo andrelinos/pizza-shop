@@ -1,11 +1,30 @@
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { ArrowRight, Search, X } from 'lucide-react'
 
+import { OrdersProps } from '@/api/get-orders'
+import { OrderStatus } from '@/components/order-status'
 import { Button } from '@/components/ui/button'
 import { TableCell, TableRow } from '@/components/ui/table'
 
 import { OrderDetails } from './order-details'
 
-export function OrderTableRow() {
+interface OrderTableProps {
+  order: OrdersProps
+}
+
+export function OrderTableRow({ order }: OrderTableProps) {
+  function stringToNumber(str: string) {
+    let result = 0
+    for (let i = 0; i < str.length; i++) {
+      result += str.charCodeAt(i)
+    }
+    return result
+  }
+
+  const orderId = order.orderId
+  const orderNumber = stringToNumber(orderId)
+
   return (
     <TableRow>
       <TableCell>
@@ -17,25 +36,32 @@ export function OrderTableRow() {
         </OrderDetails>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
-        455454654654fa65d4f56ad4
+        {orderNumber}
       </TableCell>
-      <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
-      <TableCell>
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-slate-400" />
-          <span className="font-medium text-muted-foreground">Pendente</span>
-        </div>
+      <TableCell className="text-muted-foreground">
+        {formatDistanceToNow(order.createdAt, {
+          locale: ptBR,
+          addSuffix: true,
+        })}
       </TableCell>
-      <TableCell className="font-medium">Andrelino Silva</TableCell>
-      <TableCell className="font-medium">R$ 204,58</TableCell>
       <TableCell>
+        <OrderStatus status={order.status} />
+      </TableCell>
+      <TableCell className="font-medium">{order.customerName}</TableCell>
+      <TableCell className="font-medium">
+        {order.total.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        })}
+      </TableCell>
+      <TableCell className="w-28 px-0">
         <Button variant="outline" size="xs">
           <ArrowRight className="mr-2 h-3 w-3" />
           Aprovar
         </Button>
       </TableCell>
 
-      <TableCell>
+      <TableCell className="w-28 px-0">
         <Button variant="ghost" size="xs">
           <X className="mr-2 h-3 w-3" />
           Cancelar

@@ -1,5 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
+import { useSearchParams } from 'react-router-dom'
+import { z } from 'zod'
 
+import { getOrders } from '@/api/get-orders'
 import { Pagination } from '@/components/pagination'
 import { Table, TableBody, TableHead, TableHeader } from '@/components/ui/table'
 
@@ -7,10 +11,30 @@ import { OrderTableFilters } from './components/order-table-filters'
 import { OrderTableRow } from './components/order-table-row'
 
 export function Orders() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const pageIndex = z.coerce
+    .number()
+    .transform((page) => page - 1)
+    .parse(searchParams.get('page') ?? '1')
+
+  const { data: ordersData, isLoading: isLoadingOrders } = useQuery({
+    queryKey: ['orders', pageIndex],
+    queryFn: () => getOrders({ pageIndex }),
+  })
+
+  function handlePaginate(pageIndex: number) {
+    setSearchParams((prev) => {
+      prev.set('page', String(pageIndex + 1))
+
+      return prev
+    })
+  }
+
   return (
     <>
       <Helmet title="Pedidos" />
-      <div className="flex flex-col gap-4">
+      <div className="mb-8 flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight ">Pedidos</h1>
 
         <div className="space-y-2.5">
@@ -20,7 +44,7 @@ export function Orders() {
             <Table>
               <TableHeader>
                 <TableHead className="w-[64px]"></TableHead>
-                <TableHead className="w-[140px]">Identificador</TableHead>
+                <TableHead className="w-[140px]">Núm. Pedido</TableHead>
                 <TableHead className="w-[180px]">Realizado há</TableHead>
                 <TableHead className="w-[140px]">Status</TableHead>
                 <TableHead className="">Cliente</TableHead>
@@ -30,13 +54,20 @@ export function Orders() {
                 </TableHead>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }).map((_item, index) => (
-                  <OrderTableRow key={index} />
+                {ordersData?.orders.map((order) => (
+                  <OrderTableRow key={order.orderId} order={order} />
                 ))}
               </TableBody>
             </Table>
           </div>
-          <Pagination pageIndex={1} perPage={5} totalCount={25} />
+          {ordersData && (
+            <Pagination
+              onPageChange={handlePaginate}
+              pageIndex={ordersData.meta.pageIndex}
+              perPage={ordersData.meta.perPage}
+              totalCount={ordersData.meta.totalCount}
+            />
+          )}
         </div>
       </div>
     </>
