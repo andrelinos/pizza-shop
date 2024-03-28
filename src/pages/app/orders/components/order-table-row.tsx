@@ -28,7 +28,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
   return (
     <TableRow>
       <TableCell>
-        <OrderDetails>
+        <OrderDetails orderId={orderId}>
           <Button variant="outline" size="xs" title="Detalhes do pedido">
             <Search className="h-3 w-3" />
             <span className="sr-only">Detalhes do pedido</span>
@@ -47,7 +47,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
       </TableCell>
       <TableCell className="font-medium">{order.customerName}</TableCell>
       <TableCell className="font-medium">
-        {order.total.toLocaleString('pt-BR', {
+        {(order.total / 100).toLocaleString('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         })}
