@@ -35,9 +35,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
           </Button>
         </OrderDetails>
       </TableCell>
-      <TableCell className="font-mono text-xs font-medium">
-        {orderNumber}
-      </TableCell>
+      <TableCell className="font-mono text-xs font-medium">{orderId}</TableCell>
       <TableCell className="text-muted-foreground">
         {formatDistanceToNow(order.createdAt, {
           locale: ptBR,
