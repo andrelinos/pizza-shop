@@ -1,4 +1,6 @@
-type OrderStatusTypes =
+import { cn } from '@/lib/utils'
+
+export type OrderStatusTypes =
   | 'pending'
   | 'canceled'
   | 'processing'
@@ -19,8 +21,8 @@ const orderStatusMap: Record<OrderStatusTypes, string> = {
 
 const orderStatusColorMap: Record<OrderStatusTypes, string> = {
   pending: 'bg-slate-400',
-  processing: 'bg-emerald-500',
-  delivering: 'bg-emerald-500',
+  processing: 'bg-blue-500',
+  delivering: 'bg-amber-500',
   delivered: 'bg-emerald-500',
   canceled: 'bg-rose-500',
 }
@@ -28,7 +30,9 @@ const orderStatusColorMap: Record<OrderStatusTypes, string> = {
 export function OrderStatus({ status }: OrderStatusProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className={`h-2 w-2 rounded-full ${orderStatusColorMap[status]}`} />
+      <span
+        className={cn(`h-2 w-2 rounded-full ${orderStatusColorMap[status]}`)}
+      />
       <span className="font-medium text-muted-foreground">
         {orderStatusMap[status]}
       </span>

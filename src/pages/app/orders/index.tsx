@@ -60,7 +60,7 @@ export function Orders() {
                 <TableHead className="">Cliente</TableHead>
                 <TableHead className="w-[140px]">Total do pedido</TableHead>
                 <TableHead colSpan={2} className="pr-8 text-right">
-                  Opções
+                  Ações
                 </TableHead>
               </TableHeader>
               <TableBody>

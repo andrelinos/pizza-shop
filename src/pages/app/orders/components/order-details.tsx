@@ -40,120 +40,125 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
   return (
     <Dialog open={onOpen} onOpenChange={setOnOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="h-[660px] w-[516px]">
         <DialogHeader>
           <DialogTitle>Pedido: {orderId}</DialogTitle>
           <DialogDescription>Detalhes do pedido</DialogDescription>
         </DialogHeader>
+        {order ? (
+          <>
+            <div className="space-y-6">
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="text-muted-foreground">
+                      Status
+                    </TableCell>
+                    <TableCell className="flex justify-end">
+                      <OrderStatus status={order?.status || 'pending'} />
+                    </TableCell>
+                  </TableRow>
 
-        {order && (
-          <div className="space-y-6">
-            <Table>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="text-muted-foreground">
-                    Status
-                  </TableCell>
-                  <TableCell className="flex justify-end">
-                    <OrderStatus status={order?.status || 'pending'} />
-                  </TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell className="text-muted-foreground">
+                      Cliente
+                    </TableCell>
+                    <TableCell className="flex justify-end font-mono uppercase">
+                      {order?.customer.name}
+                    </TableCell>
+                  </TableRow>
 
-                <TableRow>
-                  <TableCell className="text-muted-foreground">
-                    Cliente
-                  </TableCell>
-                  <TableCell className="flex justify-end font-mono uppercase">
-                    {order?.customer.name}
-                  </TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell className="text-muted-foreground">
+                      Telefone
+                    </TableCell>
+                    <TableCell className="flex justify-end">
+                      {order?.customer.phone || 'Não informado'}
+                    </TableCell>
+                  </TableRow>
 
-                <TableRow>
-                  <TableCell className="text-muted-foreground">
-                    Telefone
-                  </TableCell>
-                  <TableCell className="flex justify-end">
-                    {order?.customer.phone || 'Não informado'}
-                  </TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell className="text-muted-foreground">
+                      E-mail
+                    </TableCell>
+                    <TableCell className="flex justify-end">
+                      {order?.customer.email.toLowerCase()}
+                    </TableCell>
+                  </TableRow>
 
-                <TableRow>
-                  <TableCell className="text-muted-foreground">
-                    E-mail
-                  </TableCell>
-                  <TableCell className="flex justify-end">
-                    {order?.customer.email.toLowerCase()}
-                  </TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell className="text-muted-foreground">
+                      Realizado
+                    </TableCell>
+                    <TableCell className="flex justify-end">
+                      {order?.createdAt &&
+                        formatDistanceToNow(order?.createdAt, {
+                          locale: ptBR,
+                          addSuffix: true,
+                        })}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
 
-                <TableRow>
-                  <TableCell className="text-muted-foreground">
-                    Realizado
-                  </TableCell>
-                  <TableCell className="flex justify-end">
-                    {order?.createdAt &&
-                      formatDistanceToNow(order?.createdAt, {
-                        locale: ptBR,
-                        addSuffix: true,
-                      })}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Produto</TableHead>
-                  <TableHead className="text-right">Qtd.</TableHead>
-                  <TableHead className="text-right">Preço</TableHead>
-                  <TableHead className="text-right">SubTotal</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {order.orderItems.map((orderItem) => {
-                  return (
-                    <TableRow key={orderItem.id}>
-                      <TableCell>{orderItem.product.name}</TableCell>
-                      <TableCell className="text-right">
-                        {orderItem.quantity}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {(orderItem.priceInCents / 100).toLocaleString(
-                          'pb-BR',
-                          {
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Produto</TableHead>
+                    <TableHead className="text-right">Qtd.</TableHead>
+                    <TableHead className="text-right">Preço</TableHead>
+                    <TableHead className="text-right">SubTotal</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {order.orderItems.map((orderItem) => {
+                    return (
+                      <TableRow key={orderItem.id}>
+                        <TableCell>{orderItem.product.name}</TableCell>
+                        <TableCell className="text-right">
+                          {orderItem.quantity}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {(orderItem.priceInCents / 100).toLocaleString(
+                            'pb-BR',
+                            {
+                              style: 'currency',
+                              currency: 'BRL',
+                            },
+                          )}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {(
+                            (orderItem.quantity * orderItem.priceInCents) /
+                            100
+                          ).toLocaleString('pb-BR', {
                             style: 'currency',
                             currency: 'BRL',
-                          },
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {(
-                          (orderItem.quantity * orderItem.priceInCents) /
-                          100
-                        ).toLocaleString('pb-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        })}
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-              <TableFooter>
-                <TableRow className="font-semibold">
-                  <TableCell colSpan={3} className="uppercase">
-                    Total do pedido
-                  </TableCell>
-                  <TableCell className="text-right font-semibold">
-                    {(order.totalInCents / 100).toLocaleString('pb-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    })}
-                  </TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
+                          })}
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+                <TableFooter>
+                  <TableRow className="font-semibold">
+                    <TableCell colSpan={3} className="uppercase">
+                      Total do pedido
+                    </TableCell>
+                    <TableCell className="text-right font-semibold">
+                      {(order.totalInCents / 100).toLocaleString('pb-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableFooter>
+              </Table>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-1 justify-center">
+            <h2>Carregando...</h2>
           </div>
         )}
       </DialogContent>
