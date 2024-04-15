@@ -119,7 +119,7 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                           {orderItem.quantity}
                         </TableCell>
                         <TableCell className="text-right">
-                          {(orderItem.priceInCents / 100).toLocaleString(
+                          {(orderItem.priceInCents / 100)?.toLocaleString(
                             'pb-BR',
                             {
                               style: 'currency',
@@ -131,7 +131,7 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                           {(
                             (orderItem.quantity * orderItem.priceInCents) /
                             100
-                          ).toLocaleString('pb-BR', {
+                          )?.toLocaleString('pb-BR', {
                             style: 'currency',
                             currency: 'BRL',
                           })}
@@ -146,7 +146,7 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                       Total do pedido
                     </TableCell>
                     <TableCell className="text-right font-semibold">
-                      {(order.totalInCents / 100).toLocaleString('pb-BR', {
+                      {(order.totalInCents / 100)?.toLocaleString('pb-BR', {
                         style: 'currency',
                         currency: 'BRL',
                       })}
