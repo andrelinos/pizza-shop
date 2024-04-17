@@ -12,6 +12,7 @@ import { OrderStatus, OrderStatusTypes } from '@/components/order-status'
 import { Button } from '@/components/ui/button'
 import { TableCell, TableRow } from '@/components/ui/table'
 import { queryClient } from '@/lib/react-query'
+import { formatCurrency } from '@/utils/formatCurrency'
 
 import { OrderDetails } from './order-details'
 
@@ -116,10 +117,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
       </TableCell>
       <TableCell className="font-medium">{order.customerName}</TableCell>
       <TableCell className="font-medium">
-        {(order.total / 100)?.toLocaleString('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        })}
+        {formatCurrency(order.total / 100)}
       </TableCell>
       <TableCell className="w-28 px-0">
         {order.status === 'pending' && (

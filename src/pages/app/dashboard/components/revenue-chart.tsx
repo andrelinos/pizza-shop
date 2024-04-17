@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/card'
 import { DateRangePicker } from '@/components/ui/date-range-picker'
 import { Label } from '@/components/ui/label'
+import { formatCurrency } from '@/utils/formatCurrency'
 
 export function RevenueChart() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -70,12 +71,7 @@ export function RevenueChart() {
                 stroke="#888"
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={(value: number) =>
-                  value?.toLocaleString('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  })
-                }
+                tickFormatter={(value: number) => formatCurrency(value)}
               />
               <XAxis dataKey="date" tickLine={false} axisLine={false} dy={16} />
 

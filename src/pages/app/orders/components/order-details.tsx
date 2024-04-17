@@ -22,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { formatCurrency } from '@/utils/formatCurrency'
 
 export interface OrderDetailsProps {
   children: ReactNode
@@ -119,22 +120,12 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                           {orderItem.quantity}
                         </TableCell>
                         <TableCell className="text-right">
-                          {(orderItem.priceInCents / 100)?.toLocaleString(
-                            'pb-BR',
-                            {
-                              style: 'currency',
-                              currency: 'BRL',
-                            },
-                          )}
+                          {formatCurrency(orderItem.priceInCents / 100)}
                         </TableCell>
                         <TableCell className="text-right">
-                          {(
-                            (orderItem.quantity * orderItem.priceInCents) /
-                            100
-                          )?.toLocaleString('pb-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
+                          {formatCurrency(
+                            (orderItem.quantity * orderItem.priceInCents) / 100,
+                          )}
                         </TableCell>
                       </TableRow>
                     )
@@ -146,10 +137,7 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                       Total do pedido
                     </TableCell>
                     <TableCell className="text-right font-semibold">
-                      {(order.totalInCents / 100)?.toLocaleString('pb-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      })}
+                      {formatCurrency(order.totalInCents / 100)}
                     </TableCell>
                   </TableRow>
                 </TableFooter>
