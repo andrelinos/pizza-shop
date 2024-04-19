@@ -9,6 +9,7 @@ import { Table, TableBody, TableHead, TableHeader } from '@/components/ui/table'
 
 import { OrderTableFilters } from './components/order-table-filters'
 import { OrderTableRow } from './components/order-table-row'
+import { OrderTableSkeleton } from './components/order-table-skeleton'
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -22,7 +23,7 @@ export function Orders() {
     .transform((page) => page - 1)
     .parse(searchParams.get('page') ?? '1')
 
-  const { data: ordersData } = useQuery({
+  const { data: ordersData, isLoading: isLoadingOrdersData } = useQuery({
     queryKey: ['orders', pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
@@ -44,7 +45,7 @@ export function Orders() {
   return (
     <>
       <Helmet title="Pedidos" />
-      <div className="mb-8 flex flex-col gap-4">
+      <div className="mx-auto mb-8 flex flex-col gap-4">
         <h1 className="text-3xl font-bold tracking-tight ">Pedidos</h1>
 
         <div className="space-y-2.5">
@@ -57,13 +58,15 @@ export function Orders() {
                 <TableHead className="w-[140px]">Identificador</TableHead>
                 <TableHead className="w-[180px]">Realizado há</TableHead>
                 <TableHead className="w-[140px]">Status</TableHead>
-                <TableHead className="">Cliente</TableHead>
+                <TableHead className="flex-1">Cliente</TableHead>
                 <TableHead className="w-[140px]">Total do pedido</TableHead>
-                <TableHead colSpan={2} className="pr-8 text-right">
+                <TableHead colSpan={2} className="text-right">
                   Ações
                 </TableHead>
               </TableHeader>
               <TableBody>
+                {isLoadingOrdersData && <OrderTableSkeleton />}
+
                 {ordersData?.orders.map((order) => (
                   <OrderTableRow key={order.orderId} order={order} />
                 ))}

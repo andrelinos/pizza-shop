@@ -115,57 +115,57 @@ export function OrderTableRow({ order }: OrderTableProps) {
       <TableCell>
         <OrderStatus status={order.status} />
       </TableCell>
-      <TableCell className="font-medium">{order.customerName}</TableCell>
+      <TableCell className="font-medium ">{order.customerName}</TableCell>
       <TableCell className="font-medium">
         {formatCurrency(order.total / 100)}
       </TableCell>
-      <TableCell className="w-28 px-0">
-        {order.status === 'pending' && (
-          <Button
-            variant="outline"
-            size="xs"
-            onClick={() => approveOrderFn({ orderId: order.orderId })}
-          >
-            <ArrowRight className="mr-2 h-3 w-3" />
-            Aprovar
-          </Button>
-        )}
+      <TableCell colSpan={2}>
+        <div className="flex items-center gap-9">
+          {order.status === 'pending' && (
+            <Button
+              variant="outline"
+              size="xs"
+              onClick={() => approveOrderFn({ orderId: order.orderId })}
+            >
+              <ArrowRight className="mr-2 h-3 w-3" />
+              Aprovar
+            </Button>
+          )}
 
-        {order.status === 'processing' && (
-          <Button
-            variant="outline"
-            size="xs"
-            disabled={isDispatchingOrder}
-            onClick={() => dispatchOrderFn({ orderId: order.orderId })}
-          >
-            <ArrowRight className="mr-2 h-3 w-3" />
-            Enviado
-          </Button>
-        )}
+          {order.status === 'processing' && (
+            <Button
+              variant="outline"
+              size="xs"
+              disabled={isDispatchingOrder}
+              onClick={() => dispatchOrderFn({ orderId: order.orderId })}
+            >
+              <ArrowRight className="mr-2 h-3 w-3" />
+              Enviado
+            </Button>
+          )}
 
-        {order.status === 'delivering' && (
-          <Button
-            variant="outline"
-            size="xs"
-            disabled={isDeliveringOrder}
-            onClick={() => deliverOrderFn({ orderId: order.orderId })}
-          >
-            <ArrowRight className="mr-2 h-3 w-3" />
-            Entregue
-          </Button>
-        )}
-      </TableCell>
+          {order.status === 'delivering' && (
+            <Button
+              variant="outline"
+              size="xs"
+              disabled={isDeliveringOrder}
+              onClick={() => deliverOrderFn({ orderId: order.orderId })}
+            >
+              <ArrowRight className="mr-2 h-3 w-3" />
+              Entregue
+            </Button>
+          )}
 
-      <TableCell className="w-28 px-0">
-        <Button
-          variant="ghost"
-          size="xs"
-          disabled={cancelButtonIsDisabled || isCancelingOrder}
-          onClick={() => cancelOrderFn({ orderId: order.orderId })}
-        >
-          <X className="mr-2 h-3 w-3" />
-          Cancelar
-        </Button>
+          <Button
+            variant="ghost"
+            className="mx-auto"
+            disabled={cancelButtonIsDisabled || isCancelingOrder}
+            onClick={() => cancelOrderFn({ orderId: order.orderId })}
+          >
+            <X className="mr-2 h-3 w-3" />
+            Cancelar
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   )
