@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import image from '@/assets/images/not_found.jpg'
+import image from '@/assets/images/404.jpg'
 
 export function NotFound() {
   return (
