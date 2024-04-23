@@ -14,7 +14,7 @@ const signInFormSchema = z.object({
   email: z.string().email(),
 })
 
-type SignInFormProps = z.infer<typeof signInFormSchema>
+export type SignInFormProps = z.infer<typeof signInFormSchema>
 
 export function SignIn() {
   const [searchParams] = useSearchParams()
