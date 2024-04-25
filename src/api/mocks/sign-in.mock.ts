@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw'
 
-import { SignInFormProps } from '@/pages/auth/sign-in'
+import { SignInBodyProps } from '../sign-in'
 
-export const signInMock = http.post<never, SignInFormProps>(
+export const signInMock = http.post<never, SignInBodyProps>(
   '/authenticate',
   async ({ request }) => {
     const { email } = await request.json()
