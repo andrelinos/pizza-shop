@@ -29,7 +29,7 @@ const orderStatusColorMap: Record<OrderStatusTypes, string> = {
 
 export function OrderStatus({ status }: OrderStatusProps) {
   return (
-    <div className="flex items-center justify-end gap-2">
+    <div className="flex items-center justify-start gap-2">
       <span
         data-testid="badge"
         className={cn(`h-2 w-2 rounded-full ${orderStatusColorMap[status]}`)}

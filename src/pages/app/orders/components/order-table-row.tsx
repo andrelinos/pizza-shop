@@ -125,6 +125,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
             <Button
               variant="outline"
               size="xs"
+              className="ml-auto"
               onClick={() => approveOrderFn({ orderId: order.orderId })}
             >
               <ArrowRight className="mr-2 h-3 w-3" />
@@ -136,6 +137,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
             <Button
               variant="outline"
               size="xs"
+              className="ml-auto"
               disabled={isDispatchingOrder}
               onClick={() => dispatchOrderFn({ orderId: order.orderId })}
             >
@@ -148,6 +150,7 @@ export function OrderTableRow({ order }: OrderTableProps) {
             <Button
               variant="outline"
               size="xs"
+              className="ml-auto"
               disabled={isDeliveringOrder}
               onClick={() => deliverOrderFn({ orderId: order.orderId })}
             >
@@ -158,7 +161,8 @@ export function OrderTableRow({ order }: OrderTableProps) {
 
           <Button
             variant="ghost"
-            className="mx-auto"
+            size="xs"
+            className="ml-auto"
             disabled={cancelButtonIsDisabled || isCancelingOrder}
             onClick={() => cancelOrderFn({ orderId: order.orderId })}
           >
