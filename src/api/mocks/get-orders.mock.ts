@@ -19,7 +19,7 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-const orders: OrdersProps = Array.from({ length: 61 }).map((_, i) => {
+export const orders: OrdersProps = Array.from({ length: 61 }).map((_, i) => {
   return {
     orderId: `order-${i + 1}`,
     customerName: `Customer ${i + 1}`,

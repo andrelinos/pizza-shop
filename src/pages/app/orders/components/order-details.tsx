@@ -57,7 +57,10 @@ export function OrderDetails({ children, orderId }: OrderDetailsProps) {
                     Status
                   </TableCell>
                   <TableCell className="text-right">
-                    <OrderStatus status={order?.status || 'pending'} />
+                    <OrderStatus
+                      className="justify-end"
+                      status={order?.status || 'pending'}
+                    />
                   </TableCell>
                 </TableRow>
 

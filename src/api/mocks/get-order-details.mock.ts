@@ -4,22 +4,25 @@ import {
   GetOrderDetailsParamsProps,
   GetOrderDetailsResponseProps,
 } from '../get-order-details'
+import { orders } from './get-orders.mock'
 
 export const getOrderDetailsMock = http.get<
   GetOrderDetailsParamsProps,
   never,
   GetOrderDetailsResponseProps
 >('/orders/:orderId', ({ params }) => {
+  const orderItem = orders.find((order) => order.orderId === params.orderId)
+
   return HttpResponse.json({
     id: params.orderId,
     customer: {
-      name: 'John Doe',
+      name: orderItem?.customerName || '',
       email: 'johndoe@example.com',
       phone: '99999999999',
     },
-    status: 'pending',
+    status: orderItem?.status || 'processing',
     createdAt: new Date().toISOString(),
-    totalInCents: 5000,
+    totalInCents: orderItem?.total || 0,
     orderItems: [
       {
         id: 'order-item-1',

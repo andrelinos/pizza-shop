@@ -1,3 +1,5 @@
+import { HTMLAttributes } from 'react'
+
 import { cn } from '@/lib/utils'
 
 export type OrderStatusTypes =
@@ -7,7 +9,7 @@ export type OrderStatusTypes =
   | 'delivering'
   | 'delivered'
 
-interface OrderStatusProps {
+interface OrderStatusProps extends HTMLAttributes<HTMLDivElement> {
   status: OrderStatusTypes
 }
 
@@ -27,9 +29,9 @@ const orderStatusColorMap: Record<OrderStatusTypes, string> = {
   canceled: 'bg-rose-500',
 }
 
-export function OrderStatus({ status }: OrderStatusProps) {
+export function OrderStatus({ status, className, ...rest }: OrderStatusProps) {
   return (
-    <div className="flex items-center justify-start gap-2">
+    <div className={cn('flex items-center gap-2', className)} {...rest}>
       <span
         data-testid="badge"
         className={cn(`h-2 w-2 rounded-full ${orderStatusColorMap[status]}`)}
