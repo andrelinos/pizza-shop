@@ -33,7 +33,7 @@
   },
   "include": [
     "src",
-    "test"
+    "tests"
   ],
   "references": [
     {
