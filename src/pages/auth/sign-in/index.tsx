@@ -42,16 +42,11 @@ export function SignIn() {
           label: 'Reenviar',
           onClick: () => handleSignIn(data),
         },
-        duration: 300000
       })
     } catch (error) {
-      toast.error('Oh não! Algo deu errado ao tentar enviar o e-mail.', {
-        action: {
-          label: 'Reenviar',
-          onClick: () => handleSignIn(data),
-        },
-
-        duration: 300000
+      toast.error('Oh não! Algo deu errado ou você ainda não tem cadastro!', {
+        id: 'login-error',
+        // duration: 300000,
       })
     }
   }
@@ -80,7 +75,12 @@ export function SignIn() {
               <Input id="email" type="email" {...register('email')} />
             </div>
 
-            <Button className="w-full" type="submit" disabled={isSubmitting}>
+            <Button
+              test-id="button-submit"
+              className="w-full"
+              type="submit"
+              disabled={isSubmitting}
+            >
               Acessar painel
             </Button>
           </form>
