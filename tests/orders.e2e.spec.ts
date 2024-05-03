@@ -104,9 +104,7 @@ test('filter by status pending', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Filtrar resultados' }).click()
 
-  const tableRows = await page.getByRole('cell', { name: 'Pendente' }).all()
-
-  expect(tableRows).toHaveLength(10)
+  expect(page.getByRole('cell', { name: 'Pendente' })).toHaveCount(10)
 })
 
 test('filter by status preparing', async ({ page }) => {
@@ -117,9 +115,7 @@ test('filter by status preparing', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Filtrar resultados' }).click()
 
-  const tableRows = await page.getByRole('cell', { name: 'Preparando' }).all()
-
-  expect(tableRows).toHaveLength(10)
+  await expect(page.getByRole('cell', { name: 'Preparando' })).toHaveCount(10)
 })
 
 test('filter by status delivering', async ({ page }) => {
@@ -130,9 +126,7 @@ test('filter by status delivering', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Filtrar resultados' }).click()
 
-  const tableRows = await page.getByRole('cell', { name: 'Enviado' }).all()
-
-  expect(tableRows).toHaveLength(10)
+  await expect(page.getByRole('cell', { name: 'Enviado' })).toHaveCount(10)
 })
 
 test('filter by status delivered', async ({ page }) => {
@@ -143,9 +137,7 @@ test('filter by status delivered', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Filtrar resultados' }).click()
 
-  const tableRows = await page.getByRole('cell', { name: 'Entregue' }).all()
-
-  expect(tableRows).toHaveLength(10)
+  await expect(page.getByRole('cell', { name: 'Entregue' })).toHaveCount(10)
 })
 
 test('filter by status canceled', async ({ page }) => {
@@ -156,7 +148,5 @@ test('filter by status canceled', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Filtrar resultados' }).click()
 
-  const tableRows = await page.getByRole('cell', { name: 'Cancelado' }).all()
-
-  expect(tableRows).toHaveLength(10)
+  await expect(page.getByRole('cell', { name: 'Cancelado' })).toHaveCount(10)
 })
