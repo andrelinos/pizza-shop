@@ -1,13 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-test('navigate to new restaurant page', async ({ page }) => {
-  await page.goto('/sign-in', { waitUntil: 'networkidle' })
-
-  await page.getByRole('link', { name: 'Novo estabelecimento' }).click()
-
-  expect(page.url()).toContain('/sign-up')
-})
-
 test('sign has a title', async ({ page }) => {
   await page.goto('/sign-in')
 
@@ -39,6 +31,16 @@ test('sign in with wrong credentials', async ({ page }) => {
 
   await expect(toast).toBeVisible()
 })
+
+test('navigate to new restaurant page', async ({ page }) => {
+  await page.goto('/sign-in', { waitUntil: 'networkidle' })
+
+  await page.getByRole('link', { name: 'Novo estabelecimento' }).click()
+
+  expect(page.url()).toContain('/sign-up')
+})
+
+// Alternatively
 
 test('sign in successfully by data-type', async ({ page }) => {
   await page.goto('/sign-in', { waitUntil: 'networkidle' })
