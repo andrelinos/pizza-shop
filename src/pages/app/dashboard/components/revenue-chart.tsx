@@ -40,8 +40,6 @@ export function RevenueChart() {
     queryKey: ['metrics', 'daily-revenue-in-period', dateRange],
   })
 
-  console.log('dailyRevenueInPeriod ::', dailyRevenueInPeriod)
-
   const chartData = useMemo(() => {
     if (!Array.isArray(dailyRevenueInPeriod)) {
       return []
