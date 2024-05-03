@@ -1,6 +1,14 @@
 import { expect, test } from '@playwright/test'
 
-test('has title', async ({ page }) => {
+test('navigate to new restaurant page', async ({ page }) => {
+  await page.goto('/sign-in', { waitUntil: 'networkidle' })
+
+  await page.getByRole('link', { name: 'Novo estabelecimento' }).click()
+
+  expect(page.url()).toContain('/sign-up')
+})
+
+test('sign has a title', async ({ page }) => {
   await page.goto('/sign-in')
 
   await expect(page).toHaveTitle(/.*Login/)

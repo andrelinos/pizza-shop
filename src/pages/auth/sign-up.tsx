@@ -57,7 +57,7 @@ export function SignUp() {
 
   return (
     <>
-      <Helmet title="Login" />
+      <Helmet title="Cadastro" />
       <div className="p-8">
         <Button variant="ghost" className="absolute right-8 top-8" asChild>
           <Link to="/sign-in" className="">
