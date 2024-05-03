@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('sign up has a title', async ({ page }) => {
-  await page.goto('/sign-up')
+  await page.goto('/sign-up', { waitUntil: 'networkidle' })
 
   await expect(page).toHaveTitle(/.*Cadastro/)
 })

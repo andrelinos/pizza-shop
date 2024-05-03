@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test('update profile cancel', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/', { waitUntil: 'networkidle' })
 
   await page.getByRole('button', { name: 'Pizza Shop' }).click()
   await page.getByRole('menuitem', { name: 'Perfil da loja' }).click()
@@ -10,7 +10,7 @@ test('update profile cancel', async ({ page }) => {
 })
 
 test('update profile close', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/', { waitUntil: 'networkidle' })
 
   await page.getByRole('button', { name: 'Pizza Shop' }).click()
   await page.getByRole('menuitem', { name: 'Perfil da loja' }).click()
@@ -19,7 +19,7 @@ test('update profile close', async ({ page }) => {
 })
 
 test('update profile successfully', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/', { waitUntil: 'networkidle' })
 
   await page.getByRole('button', { name: 'Pizza Shop' }).click()
   await page.getByRole('menuitem', { name: 'Perfil da loja' }).click()
@@ -41,7 +41,7 @@ test('update profile successfully', async ({ page }) => {
 })
 
 test('update profile with erro', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/', { waitUntil: 'networkidle' })
 
   await page.getByRole('button', { name: 'Pizza Shop' }).click()
   await page.getByRole('menuitem', { name: 'Perfil da loja' }).click()
