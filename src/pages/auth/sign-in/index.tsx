@@ -36,9 +36,23 @@ export function SignIn() {
   async function handleSignIn(data: SignInFormProps) {
     try {
       await authenticateFn({ email: data.email })
-      toast.success('Enviamos um link de autenticação para seu e-mail.')
+
+      toast.success('Enviamos um link de autenticação para seu e-mail.', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSignIn(data),
+        },
+        duration: 300000
+      })
     } catch (error) {
-      toast.error('Oh não! Algo deu errado ao tentar enviar o e-mail.')
+      toast.error('Oh não! Algo deu errado ao tentar enviar o e-mail.', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => handleSignIn(data),
+        },
+
+        duration: 300000
+      })
     }
   }
 
